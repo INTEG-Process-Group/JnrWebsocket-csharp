@@ -1,0 +1,17 @@
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\bin\Debug\MultipleJniors.exe.config
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\obj\Debug\MultipleJniors.csprojResolveAssemblyReference.cache
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\obj\Debug\MultipleJniors.ConnectDialog.resources
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\obj\Debug\IPTextBox.resources
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\obj\Debug\WebSocketExample.LoginDialog.resources
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\obj\Debug\MultipleJniors.Form1.resources
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\obj\Debug\MultipleJniors.Properties.Resources.resources
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\obj\Debug\MultipleJniors.csproj.GenerateResource.Cache
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\bin\Debug\MultipleJniors.exe
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\bin\Debug\MultipleJniors.pdb
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\bin\Debug\JniorWebSocket.dll
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\bin\Debug\NLog.dll
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\bin\Debug\Newtonsoft.Json.dll
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\bin\Debug\JniorWebSocket.pdb
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\bin\Debug\NLog.xml
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\obj\Debug\MultipleJniors.exe
+c:\users\kcloutier\documents\visual studio 2015\Projects\MultipleJniors\MultipleJniors\obj\Debug\MultipleJniors.pdb

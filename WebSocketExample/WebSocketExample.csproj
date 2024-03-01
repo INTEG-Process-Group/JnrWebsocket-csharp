@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7ED68CD3-0D5C-492E-8684-EB1D41044609}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebSocketExample</RootNamespace>
+    <AssemblyName>WebSocketExample</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Includes\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="JniorWebSocket">
+      <HintPath>..\JniorWebSocket\bin\Debug\JniorWebSocket.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Tunnel\Newtonsoft.Json.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SplitButton">
+      <HintPath>..\Includes\SplitButton.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Speech" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\ActionBase.cs" />
+    <Compile Include="Actions\ActionBaseFactory.cs" />
+    <Compile Include="Actions\ActionResult.cs" />
+    <Compile Include="Actions\IAction.cs" />
+    <Compile Include="Actions\RegistryIngestAction.cs" />
+    <Compile Include="Actions\UploadFileAction.cs" />
+    <Compile Include="Actions\InstallOsAction.cs" />
+    <Compile Include="Actions\RebootAction.cs" />
+    <Compile Include="Actions\RegistryTelnetCommandAction.cs" />
+    <Compile Include="Actions\TelnetCommandAction.cs" />
+    <Compile Include="Actions\TelnetCommandFactory.cs" />
+    <Compile Include="Actions\TelnetCommandsAction.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\FileListCommand.cs" />
+    <Compile Include="Commands\ReadFileCommand.cs" />
+    <Compile Include="Commands\TelnetCommand.cs" />
+    <Compile Include="Commands\RegistryIngestCommand.cs" />
+    <Compile Include="Commands\RebootCommand.cs" />
+    <Compile Include="Dialogs\ConnectDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ConnectDialog.Designer.cs">
+      <DependentUpon>ConnectDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditPropertiesDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditPropertiesDlg.Designer.cs">
+      <DependentUpon>EditPropertiesDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\IPTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dialogs\IPTextBox.Designer.cs">
+      <DependentUpon>IPTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PublishUpdateProjectDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PublishUpdateProjectDialog.Designer.cs">
+      <DependentUpon>PublishUpdateProjectDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TransferDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\TransferDialog.Designer.cs">
+      <DependentUpon>TransferDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\UdpFileSelectEditor.cs" />
+    <Compile Include="Editors\FileSelectEditor.cs" />
+    <Compile Include="Editors\IniFileSelectEditor.cs" />
+    <Compile Include="Editors\ZipFileSelectEditor.cs" />
+    <Compile Include="InformationEventArgs.cs" />
+    <Compile Include="InformationEventHandler.cs" />
+    <Compile Include="JanosUpd.cs" />
+    <Compile Include="Commands\GetOsVersionCommand.cs" />
+    <Compile Include="Commands\JrUpdateCommand.cs" />
+    <Compile Include="Dialogs\LoginDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\LoginDialog.Designer.cs">
+      <DependentUpon>LoginDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Commands\SendFileCommand.cs" />
+    <Compile Include="Sorters\PropertySorter.cs" />
+    <Compile Include="UpdateProject.cs" />
+    <Compile Include="UpdateProjectEngine.cs" />
+    <EmbeddedResource Include="Dialogs\ConnectDialog.resx">
+      <DependentUpon>ConnectDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditPropertiesDlg.resx">
+      <DependentUpon>EditPropertiesDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\IPTextBox.resx">
+      <DependentUpon>IPTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\LoginDialog.resx">
+      <DependentUpon>LoginDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PublishUpdateProjectDialog.resx">
+      <DependentUpon>PublishUpdateProjectDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="bin\Debug\ICSharpCode.SharpZipLib.dll" />
+    <EmbeddedResource Include="bin\Debug\Newtonsoft.Json.dll" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="bin\Debug\NLog.dll" />
+    <EmbeddedResource Include="bin\Debug\JniorWebSocket.dll" />
+    <Content Include="bin\Debug\SplitButton.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
