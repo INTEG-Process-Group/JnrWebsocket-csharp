@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integpg\JniorWebSocket\Messages\PostMessage.cs" />
     <Compile Include="Integpg\JniorWebSocket\Messages\FileList.cs" />
     <Compile Include="Integpg\JniorWebSocket\Messages\FileRead.cs" />
     <Compile Include="Integpg\Logging\LogDictionary.cs" />

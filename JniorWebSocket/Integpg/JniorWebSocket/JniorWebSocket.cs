@@ -15,6 +15,7 @@ namespace Integpg.JniorWebSocket
         public event EventHandler Disconnected;
         public event EventHandler Authorized;
         public event EventHandler<UnauthorizedEventArgs> Unauthorized;
+        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
 
         public string Host { get; private set; }
         public int Port { get; private set; }
@@ -280,6 +281,9 @@ namespace Integpg.JniorWebSocket
                     }
 
                 }
+
+                // forward on the message received event to anyone who cares about it
+                MessageReceived?.Invoke(this, e);
             }
             catch (Exception ex)
             {
