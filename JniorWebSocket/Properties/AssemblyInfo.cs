@@ -36,6 +36,7 @@ using System.Runtime.InteropServices;
 // 2.0
 //    added MessageReceived event 
 //    added PostMessage Message Class
+//    fixed issue where Authenticated event was getting called every time a Montior packet was received.
 
 [assembly: AssemblyVersion("2.0.0.0")]
 [assembly: AssemblyFileVersion("2.0.0.0")]

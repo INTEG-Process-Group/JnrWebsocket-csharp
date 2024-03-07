@@ -232,8 +232,11 @@ namespace Integpg.JniorWebSocket
                     HandleErrorMessage(json);
                 else if ("Monitor".Equals(message))
                 {
-                    IsAuthenticated = true;
-                    Authorized?.Invoke(this, EventArgs.Empty);
+                    if (!IsAuthenticated)
+                    {
+                        IsAuthenticated = true;
+                        Authorized?.Invoke(this, EventArgs.Empty);
+                    }
                 }
                 else if ("Authenticated".Equals(message))
                     IsAuthenticated = true;
