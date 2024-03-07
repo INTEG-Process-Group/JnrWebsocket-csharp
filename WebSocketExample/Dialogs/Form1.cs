@@ -350,7 +350,7 @@ namespace WebSocketExample
         // connect menu item click handler
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Connect("10.0.0.63", false);
+            //Connect("10.0.0.63", false);
 
             var connectProperties = GetConnectProperties();
             if (null != connectProperties)
@@ -401,7 +401,7 @@ namespace WebSocketExample
 
         private void Connect(string ipAddress, bool secure)
         {
-            Connect(ipAddress, 443, secure);
+            Connect(ipAddress, secure ? 443 : 80, secure);
         }
 
 
@@ -418,8 +418,8 @@ namespace WebSocketExample
             // wireup some callbacks
             _jniorWebsocket.Log += _jniorWebsocket_Log;
             _jniorWebsocket.Error += _jniorWebsocket_Error;
-            //_jniorWebsocket.Connected += _jniorWebsocket_Connected;
-            //_jniorWebsocket.Disconnected += _jniorWebsocket_Disconnected;
+            _jniorWebsocket.Connected += _jniorWebsocket_Connected;
+            _jniorWebsocket.Disconnected += _jniorWebsocket_Disconnected;
             _jniorWebsocket.Unauthorized += _jniorWebsocket_Unauthorized;
 
             // connect!
@@ -1115,6 +1115,17 @@ namespace WebSocketExample
                     return BitConverter.ToString(md5Bytes).Replace("-", "");
                 }
             }
+        }
+
+
+
+        private void getSerialNumberToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Thread(delegate ()
+            {
+                JObject registryReponse = _jniorWebsocket.Query(new RegistryRead("$serialnumber"));
+                Console.WriteLine(registryReponse.ToString());
+            }).Start();
         }
     }
 }

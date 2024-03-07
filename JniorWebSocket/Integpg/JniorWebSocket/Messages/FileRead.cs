@@ -3,11 +3,12 @@ using System.IO;
 
 namespace Integpg.JniorWebSocket.Messages
 {
-    public class FileRead : MetaMessage
+    public class FileRead : JniorMessage
     {
         public FileRead(string remoteFileName) : base("File Read")
         {
             this["File"] = remoteFileName;
+            this["Meta"] = new MetaMessage();
         }
 
 

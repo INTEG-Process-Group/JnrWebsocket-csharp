@@ -49,8 +49,10 @@
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.repeatedSnapshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.testFlashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.readRegistryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getSerialNumberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +78,7 @@
             this.readClockToolStripMenuItem,
             this.setClockToolStripMenuItem,
             this.rebootToolStripMenuItem,
+            this.readRegistryToolStripMenuItem,
             this.readFileToolStripMenuItem,
             this.toolStripMenuItem2,
             this.publishProjectToolStripMenuItem,
@@ -114,7 +117,7 @@
             // closeOutput1ToolStripMenuItem
             // 
             this.closeOutput1ToolStripMenuItem.Name = "closeOutput1ToolStripMenuItem";
-            this.closeOutput1ToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
+            this.closeOutput1ToolStripMenuItem.Size = new System.Drawing.Size(104, 20);
             this.closeOutput1ToolStripMenuItem.Text = "Toggle Output 1";
             this.closeOutput1ToolStripMenuItem.Click += new System.EventHandler(this.toggleOutput1ToolStripMenuItem_Click);
             // 
@@ -203,7 +206,7 @@
             this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.repeatedSnapshotToolStripMenuItem});
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.testToolStripMenuItem.Text = "Test";
             // 
             // repeatedSnapshotToolStripMenuItem
@@ -220,17 +223,32 @@
             this.openConsoleToolStripMenuItem.Text = "Open Console";
             this.openConsoleToolStripMenuItem.Click += new System.EventHandler(this.openConsoleToolStripMenuItem_Click);
             // 
+            // testFlashToolStripMenuItem
+            // 
+            this.testFlashToolStripMenuItem.Name = "testFlashToolStripMenuItem";
+            this.testFlashToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.testFlashToolStripMenuItem.Text = "Test Flash";
+            this.testFlashToolStripMenuItem.Click += new System.EventHandler(this.testFlashToolStripMenuItem_Click);
+            // 
             // notifyIcon1
             // 
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
-            // testFlashToolStripMenuItem
+            // readRegistryToolStripMenuItem
             // 
-            this.testFlashToolStripMenuItem.Name = "testFlashToolStripMenuItem";
-            this.testFlashToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.testFlashToolStripMenuItem.Text = "Test Flash";
-            this.testFlashToolStripMenuItem.Click += new System.EventHandler(this.testFlashToolStripMenuItem_Click);
+            this.readRegistryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.getSerialNumberToolStripMenuItem});
+            this.readRegistryToolStripMenuItem.Name = "readRegistryToolStripMenuItem";
+            this.readRegistryToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.readRegistryToolStripMenuItem.Text = "Read Registry";
+            // 
+            // getSerialNumberToolStripMenuItem
+            // 
+            this.getSerialNumberToolStripMenuItem.Name = "getSerialNumberToolStripMenuItem";
+            this.getSerialNumberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.getSerialNumberToolStripMenuItem.Text = "GetSerialNumber";
+            this.getSerialNumberToolStripMenuItem.Click += new System.EventHandler(this.getSerialNumberToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -275,6 +293,8 @@
         private System.Windows.Forms.ToolStripMenuItem openConsoleToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ToolStripMenuItem testFlashToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem readRegistryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem getSerialNumberToolStripMenuItem;
     }
 }
 

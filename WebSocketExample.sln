@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.33026.149
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketExample", "WebSocketExample\WebSocketExample.csproj", "{7ED68CD3-0D5C-492E-8684-EB1D41044609}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D319D09E-38F1-499B-80B5-719F87B2EE1E} = {D319D09E-38F1-499B-80B5-719F87B2EE1E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JniorWebSocket", "JniorWebSocket\JniorWebSocket.csproj", "{D319D09E-38F1-499B-80B5-719F87B2EE1E}"
 EndProject
@@ -24,5 +27,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE7F3B75-DB0F-469D-B2A9-01FE78117204}
 	EndGlobalSection
 EndGlobal

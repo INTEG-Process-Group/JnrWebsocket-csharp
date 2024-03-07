@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Integpg.JniorWebSocket.Messages
 {
-    public class FileWrite : MetaMessage
+    public class FileWrite : JniorMessage
     {
         public FileWrite(string destinationFileName, FileInfo fileInfo) : base("File Write")
         {
@@ -23,6 +23,8 @@ namespace Integpg.JniorWebSocket.Messages
 
         private void Init(string destinationFileName, FileInfo fileInfo, byte[] fileBytes, int count)
         {
+            this["Meta"] = new MetaMessage();
+
             if (!destinationFileName.StartsWith("/"))
                 destinationFileName = "/" + destinationFileName;
             this["File"] = destinationFileName;

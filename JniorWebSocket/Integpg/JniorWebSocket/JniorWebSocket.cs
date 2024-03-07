@@ -27,6 +27,7 @@ namespace Integpg.JniorWebSocket
         public WebSocket Websocket { get; private set; }
 
         public Dictionary<string, ManualResetEvent> MetaWaitHandles = new Dictionary<string, ManualResetEvent>();
+        public Dictionary<string, JObject> MetaResponses = new Dictionary<string, JObject>();
 
         private ConsoleSession _consoleSession = null;
         public bool ConsoleOpen = false;
@@ -209,6 +210,36 @@ namespace Integpg.JniorWebSocket
 
 
 
+        public JObject Query(JObject json)
+        {
+            try
+            {
+                // we will send and wait for a response
+                if (null == json["Meta"] || null == json["Meta"]["Hash"])
+                {
+                    throw new Exception("Must supply a Meta Hash when using the Query method");
+                }
+
+                var metaToWaitFor = (string)json["Meta"]["Hash"];
+                Console.WriteLine("Meta: " + metaToWaitFor);
+
+                Websocket.Send(json.ToString());
+                Console.WriteLine("Sent: " + json.ToString());
+
+                WaitForMeta(metaToWaitFor);
+                JObject response = MetaResponses[metaToWaitFor];
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                Log?.Invoke(this, new LogEventArgs("\r\n" + ex.StackTrace.ToString() + "\r\n\r\n"));
+                throw ex;
+            }
+        }
+
+
+
         private void Websocket_Log(object sender, LogEventArgs e)
         {
             Log?.Invoke(this, e);
@@ -218,80 +249,85 @@ namespace Integpg.JniorWebSocket
 
         private void Websocket_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            try
+            new Thread(delegate ()
             {
-                if (string.IsNullOrEmpty(e.Message))
-                    return;
-
-                var json = JObject.Parse(e.Message);
-
-                //Log?.Invoke(this, new LogEventArgs("RECV <- " + json.ToString(Newtonsoft.Json.Formatting.None) + "\r\n"));
-
-                var message = json["Message"].ToString();
-                if ("Error".Equals(message))
-                    HandleErrorMessage(json);
-                else if ("Monitor".Equals(message))
+                try
                 {
-                    if (!IsAuthenticated)
+                    if (string.IsNullOrEmpty(e.Message))
+                        return;
+
+                    var json = JObject.Parse(e.Message);
+
+                    Log?.Invoke(this, new LogEventArgs("RECV <- " + json.ToString(Newtonsoft.Json.Formatting.None) + "\r\n"));
+
+                    var message = json["Message"].ToString();
+                    if ("Error".Equals(message))
+                        HandleErrorMessage(json);
+                    else if ("Monitor".Equals(message))
                     {
+                        if (!IsAuthenticated)
+                        {
+                            IsAuthenticated = true;
+                            Authorized?.Invoke(this, EventArgs.Empty);
+                        }
+                    }
+                    else if ("Authenticated".Equals(message))
                         IsAuthenticated = true;
-                        Authorized?.Invoke(this, EventArgs.Empty);
-                    }
-                }
-                else if ("Authenticated".Equals(message))
-                    IsAuthenticated = true;
-                //else if ("Console Response".Equals(message))
-                //{
-                //    var status = (string)json["Status"];
-                //    if ("Established".Equals(status)) _consoleOpen = true;
-                //    else if ("Closed".Equals(status)) _consoleOpen = false;
-                //}
-                //else if ("Console Stdout".Equals(message))
-                //{
-                //    var data = (string)json["Data"];
-                //    var meta = null as string;
-                //    if (data.Contains(" login: ")) meta = "loginprompt";
-                //    else if (data.Contains(" password: ")) meta = "passwordprompt";
+                    //else if ("Console Response".Equals(message))
+                    //{
+                    //    var status = (string)json["Status"];
+                    //    if ("Established".Equals(status)) _consoleOpen = true;
+                    //    else if ("Closed".Equals(status)) _consoleOpen = false;
+                    //}
+                    //else if ("Console Stdout".Equals(message))
+                    //{
+                    //    var data = (string)json["Data"];
+                    //    var meta = null as string;
+                    //    if (data.Contains(" login: ")) meta = "loginprompt";
+                    //    else if (data.Contains(" password: ")) meta = "passwordprompt";
 
-                //    if (null != meta && MetaWaitHandles.ContainsKey(meta))
-                //    {
-                //        var waitEvent = MetaWaitHandles[meta];
-                //        if (null != waitEvent)
-                //        {
-                //            Console.WriteLine("signal meta wait " + meta);
-                //            waitEvent.Set();
-                //        }
-                //    }
-                //}
+                    //    if (null != meta && MetaWaitHandles.ContainsKey(meta))
+                    //    {
+                    //        var waitEvent = MetaWaitHandles[meta];
+                    //        if (null != waitEvent)
+                    //        {
+                    //            Console.WriteLine("signal meta wait " + meta);
+                    //            waitEvent.Set();
+                    //        }
+                    //    }
+                    //}
 
-                if (null != json["Meta"])
-                {
-                    var meta = (string)json["Meta"];
-                    Console.WriteLine("Meta found: " + meta);
-                    Console.WriteLine(meta + " found: " + MetaWaitHandles.ContainsKey(meta));
-                    if (MetaWaitHandles.ContainsKey(meta))
+                    if (null != json["Meta"] && null != json["Meta"]["Hash"])
                     {
-                        var waitEvent = MetaWaitHandles[meta];
-                        if (null != waitEvent)
+                        var meta = (string)json["Meta"]["Hash"];
+                        Console.WriteLine("Meta found: " + meta);
+                        Console.WriteLine(meta + " found: " + MetaWaitHandles.ContainsKey(meta));
+                        if (MetaWaitHandles.ContainsKey(meta))
                         {
-                            Console.WriteLine("signal meta wait " + meta);
-                            waitEvent.Set();
-                        }
-                        else
-                        {
+                            var waitEvent = MetaWaitHandles[meta];
+                            if (null != waitEvent)
+                            {
+                                MetaResponses[meta] = json;
 
+                                Console.WriteLine("signal meta wait " + meta);
+                                waitEvent.Set();
+                            }
+                            else
+                            {
+
+                            }
                         }
+
                     }
 
+                    // forward on the message received event to anyone who cares about it
+                    MessageReceived?.Invoke(this, e);
                 }
-
-                // forward on the message received event to anyone who cares about it
-                MessageReceived?.Invoke(this, e);
-            }
-            catch (Exception ex)
-            {
-                Error?.Invoke(this, new ExceptionEventArgs(ex));
-            }
+                catch (Exception ex)
+                {
+                    Error?.Invoke(this, new ExceptionEventArgs(ex));
+                }
+            }).Start();
         }
 
 

@@ -1,19 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 
 namespace Integpg.JniorWebSocket.Messages
 {
     // extends the JObject Newtonsonft JSON object
-    public class MetaMessage : JniorMessage
+    public class MetaMessage : JObject
     {
-        private MetaMessage() : base()
+        public MetaMessage(string prefix = "") : base()
         {
-        }
-
-
-
-        protected MetaMessage(string message) : base(message)
-        {
-            this["Meta"] = new Random().Next().ToString("X");
+            if (null != prefix) prefix += "-";
+            this["Hash"] = $"{prefix}{new Random().Next().ToString("X")}";
         }
     }
 }
