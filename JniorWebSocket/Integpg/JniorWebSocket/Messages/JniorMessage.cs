@@ -30,5 +30,6 @@ namespace Integpg.JniorWebSocket.Messages
         {
             this["Message"] = message;
         }
+
     }
 }

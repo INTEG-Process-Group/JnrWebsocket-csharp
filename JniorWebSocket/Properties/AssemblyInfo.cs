@@ -39,6 +39,7 @@ using System.Runtime.InteropServices;
 //    fixed issue where Authenticated event was getting called every time a Montior packet was received.
 //    added a RegistryRead Message
 //    added a Query method that will wait for a response.This will check to see if the object being sent contains a Meta Hash value
+//    made the Query method an async method so that it does not block on the UI thread
 
 [assembly: AssemblyVersion("2.0.0.0")]
 [assembly: AssemblyFileVersion("2.0.0.0")]

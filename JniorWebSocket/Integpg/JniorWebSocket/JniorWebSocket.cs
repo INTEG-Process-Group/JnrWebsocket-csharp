@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Integpg.JniorWebSocket
 {
@@ -26,11 +27,11 @@ namespace Integpg.JniorWebSocket
 
         public WebSocket Websocket { get; private set; }
 
-        public Dictionary<string, ManualResetEvent> MetaWaitHandles = new Dictionary<string, ManualResetEvent>();
         public Dictionary<string, JObject> MetaResponses = new Dictionary<string, JObject>();
 
         private ConsoleSession _consoleSession = null;
         public bool ConsoleOpen = false;
+        public bool ConsoleOpening = false;
         private string _nonce;
 
 
@@ -120,25 +121,18 @@ namespace Integpg.JniorWebSocket
 
 
 
-        public bool WaitForMeta(string meta)
+        public async Task<bool> WaitForMeta(string meta)
         {
             var waitTimeoutSeconds = 5;
             var start = DateTime.Now;
-            Console.WriteLine("Wait For Meta: " + meta);
-            if (!MetaWaitHandles.ContainsKey(meta))
+            Console.WriteLine("Wait For Meta Response: " + meta);
+
+            DateTime timeoutExpiration = DateTime.Now.AddSeconds(waitTimeoutSeconds);
+            while (DateTime.Now <= timeoutExpiration && !MetaResponses.ContainsKey(meta))
             {
-                var mre = new ManualResetEvent(false);
-                MetaWaitHandles[meta] = mre;
-
-                //Console.WriteLine(meta + " starts and calls mre.WaitOne()");
-                mre.WaitOne(waitTimeoutSeconds * 1000);
-                //Console.WriteLine(meta + " ends.");
-
-                MetaWaitHandles.Remove(meta);
+                await Task.Delay(25);
             }
-            var elapsed = DateTime.Now - start;
-
-            return elapsed.TotalSeconds < waitTimeoutSeconds;
+            return DateTime.Now <= timeoutExpiration;
         }
 
 
@@ -196,11 +190,11 @@ namespace Integpg.JniorWebSocket
 
 
 
-        public void Send(JObject json)
+        public void Send(JniorMessage jniorMessage)
         {
             try
             {
-                Websocket.Send(json.ToString());
+                Websocket.Send(jniorMessage.ToString());
             }
             catch (Exception ex)
             {
@@ -210,24 +204,27 @@ namespace Integpg.JniorWebSocket
 
 
 
-        public JObject Query(JObject json)
+        public async Task<JObject> Query(JniorMessage jniorMessage)
         {
             try
             {
                 // we will send and wait for a response
-                if (null == json["Meta"] || null == json["Meta"]["Hash"])
+                if (null == jniorMessage["Meta"] || null == jniorMessage["Meta"]["Hash"])
                 {
                     throw new Exception("Must supply a Meta Hash when using the Query method");
                 }
 
-                var metaToWaitFor = (string)json["Meta"]["Hash"];
+                var metaToWaitFor = (string)jniorMessage["Meta"]["Hash"];
                 Console.WriteLine("Meta: " + metaToWaitFor);
 
-                Websocket.Send(json.ToString());
-                Console.WriteLine("Sent: " + json.ToString());
+                Websocket.Send(jniorMessage.ToString());
+                Console.WriteLine("Sent: " + jniorMessage.ToString());
 
-                WaitForMeta(metaToWaitFor);
+                await WaitForMeta(metaToWaitFor);
                 JObject response = MetaResponses[metaToWaitFor];
+
+                // the response was obtained from the dictionary.  now remove it
+                MetaResponses.Remove(metaToWaitFor);
 
                 return response;
             }
@@ -262,7 +259,10 @@ namespace Integpg.JniorWebSocket
 
                     var message = json["Message"].ToString();
                     if ("Error".Equals(message))
+                    {
                         HandleErrorMessage(json);
+
+                    }
                     else if ("Monitor".Equals(message))
                     {
                         if (!IsAuthenticated)
@@ -270,9 +270,18 @@ namespace Integpg.JniorWebSocket
                             IsAuthenticated = true;
                             Authorized?.Invoke(this, EventArgs.Empty);
                         }
+
                     }
                     else if ("Authenticated".Equals(message))
-                        IsAuthenticated = true;
+                    {
+                        if (!IsAuthenticated)
+                        {
+                            IsAuthenticated = true;
+                            Authorized?.Invoke(this, EventArgs.Empty);
+                        }
+
+                    }
+
                     //else if ("Console Response".Equals(message))
                     //{
                     //    var status = (string)json["Status"];
@@ -301,22 +310,7 @@ namespace Integpg.JniorWebSocket
                     {
                         var meta = (string)json["Meta"]["Hash"];
                         Console.WriteLine("Meta found: " + meta);
-                        Console.WriteLine(meta + " found: " + MetaWaitHandles.ContainsKey(meta));
-                        if (MetaWaitHandles.ContainsKey(meta))
-                        {
-                            var waitEvent = MetaWaitHandles[meta];
-                            if (null != waitEvent)
-                            {
-                                MetaResponses[meta] = json;
-
-                                Console.WriteLine("signal meta wait " + meta);
-                                waitEvent.Set();
-                            }
-                            else
-                            {
-
-                            }
-                        }
+                        MetaResponses[meta] = json;
 
                     }
 

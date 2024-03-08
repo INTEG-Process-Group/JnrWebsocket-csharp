@@ -60,32 +60,21 @@ namespace Integpg.JniorWebSocket
                     if (data.Contains(" login: "))
                     {
                         meta = "loginprompt";
+                        _jniorWebSocket.MetaResponses[meta] = json;
                         handled = true;
                     }
                     else if (data.Contains(" password: "))
                     {
                         meta = "passwordprompt";
+                        _jniorWebSocket.MetaResponses[meta] = json;
                         handled = true;
                     }
                     else if (data.Contains("/> "))
                     {
                         meta = "prompt";
+                        _jniorWebSocket.MetaResponses[meta] = json;
                     }
 
-                    if (null != meta && _jniorWebSocket.MetaWaitHandles.ContainsKey(meta))
-                    {
-                        var waitEvent = _jniorWebSocket.MetaWaitHandles[meta];
-                        if (null != waitEvent)
-                        {
-                            Console.WriteLine("signal meta wait " + meta);
-                            waitEvent.Set();
-                        }
-                    }
-
-                    if (!handled)
-                    {
-                        ConsoleMessageReceived?.Invoke(this, new MessageReceivedEventArgs((string)json["Data"]));
-                    }
                 }
             }
             catch (Exception ex)
@@ -96,43 +85,43 @@ namespace Integpg.JniorWebSocket
 
 
 
-        public void Open()
+        public async void Open()
         {
             Console.WriteLine("ConsoleSession.Open: " + _jniorWebSocket.ConsoleOpen);
 
-            lock (this)
+            if (!_jniorWebSocket.ConsoleOpen && !_jniorWebSocket.ConsoleOpening)
             {
-                if (!_jniorWebSocket.ConsoleOpen)
+                _jniorWebSocket.ConsoleOpening = true;
+
+                Log?.Invoke(this, new LogEventArgs("Open Console\r\n"));
+
+                var consoleOpen = new ConsoleOpen();
+                _jniorWebSocket.Send(consoleOpen);
+                if (!await _jniorWebSocket.WaitForMeta("loginprompt"))
                 {
-                    Log?.Invoke(this, new LogEventArgs("Open Console\r\n"));
-
-                    var consoleOpen = new ConsoleOpen();
-                    _jniorWebSocket.Send(consoleOpen);
-                    if (!_jniorWebSocket.WaitForMeta("loginprompt"))
-                    {
-                        throw new Exception("Login prompt not received");
-                    }
-
-                    Log?.Invoke(this, new LogEventArgs("Send Username\r\n"));
-                    var consoleUsername = new ConsoleStdin(_jniorWebSocket.Credentials.UserName + "\r");
-                    _jniorWebSocket.Send(consoleUsername);
-                    if (!_jniorWebSocket.WaitForMeta("passwordprompt"))
-                    {
-                        throw new Exception("Password prompt not received");
-                    }
-
-                    Log?.Invoke(this, new LogEventArgs("Send Password\r\n"));
-                    var consolePassword = new ConsoleStdin(_jniorWebSocket.Credentials.Password + "\r");
-                    _jniorWebSocket.Send(consolePassword);
-                    if (!_jniorWebSocket.WaitForMeta("prompt"))
-                    {
-                        throw new Exception("Prompt not received");
-                    }
-
-                    Log?.Invoke(this, new LogEventArgs("Logged in\r\n"));
-
-                    _jniorWebSocket.ConsoleOpen = true;
+                    throw new Exception("Login prompt not received");
                 }
+
+                Log?.Invoke(this, new LogEventArgs("Send Username\r\n"));
+                var consoleUsername = new ConsoleStdin(_jniorWebSocket.Credentials.UserName + "\r");
+                _jniorWebSocket.Send(consoleUsername);
+                if (!await _jniorWebSocket.WaitForMeta("passwordprompt"))
+                {
+                    throw new Exception("Password prompt not received");
+                }
+
+                Log?.Invoke(this, new LogEventArgs("Send Password\r\n"));
+                var consolePassword = new ConsoleStdin(_jniorWebSocket.Credentials.Password + "\r");
+                _jniorWebSocket.Send(consolePassword);
+                if (!await _jniorWebSocket.WaitForMeta("prompt"))
+                {
+                    //throw new Exception("Prompt not received");
+                }
+
+                Log?.Invoke(this, new LogEventArgs("Logged in\r\n"));
+
+                _jniorWebSocket.ConsoleOpen = true;
+                _jniorWebSocket.ConsoleOpening = false;
             }
         }
 

@@ -325,6 +325,7 @@ namespace Integpg.JniorWebSocket
 
         public void SendFrame(string message)
         {
+
             Log?.Invoke(this, new LogEventArgs("SEND -->: " + message.Replace("\r\n", "")));
 
             lock (_out)
