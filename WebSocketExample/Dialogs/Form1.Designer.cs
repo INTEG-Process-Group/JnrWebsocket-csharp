@@ -31,19 +31,20 @@
             this.components = new System.ComponentModel.Container();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.connectionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.secureConnectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeOutput1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.readClockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setClockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rebootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.readRegistryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getSerialNumberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.secureConnectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.getRootListingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,6 +76,38 @@
             this.menuStrip1.Size = new System.Drawing.Size(1291, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // connectionMenuItem
+            // 
+            this.connectionMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectToolStripMenuItem,
+            this.secureConnectToolStripMenuItem1,
+            this.disconnectToolStripMenuItem});
+            this.connectionMenuItem.Name = "connectionMenuItem";
+            this.connectionMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.connectionMenuItem.Text = "Connection";
+            // 
+            // connectToolStripMenuItem
+            // 
+            this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.connectToolStripMenuItem.Text = "Connect";
+            this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
+            // 
+            // secureConnectToolStripMenuItem1
+            // 
+            this.secureConnectToolStripMenuItem1.Name = "secureConnectToolStripMenuItem1";
+            this.secureConnectToolStripMenuItem1.Size = new System.Drawing.Size(157, 22);
+            this.secureConnectToolStripMenuItem1.Text = "Secure Connect";
+            this.secureConnectToolStripMenuItem1.Click += new System.EventHandler(this.secureConnectToolStripMenuItem_Click);
+            // 
+            // disconnectToolStripMenuItem
+            // 
+            this.disconnectToolStripMenuItem.Enabled = false;
+            this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.disconnectToolStripMenuItem.Text = "Disconnect";
+            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
             // 
             // loginToolStripMenuItem
             // 
@@ -112,19 +145,6 @@
             this.rebootToolStripMenuItem.Text = "Reboot";
             this.rebootToolStripMenuItem.Click += new System.EventHandler(this.rebootToolStripMenuItem_Click);
             // 
-            // openConsoleToolStripMenuItem
-            // 
-            this.openConsoleToolStripMenuItem.Enabled = false;
-            this.openConsoleToolStripMenuItem.Name = "openConsoleToolStripMenuItem";
-            this.openConsoleToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.openConsoleToolStripMenuItem.Text = "Open Console";
-            this.openConsoleToolStripMenuItem.Click += new System.EventHandler(this.openConsoleToolStripMenuItem_Click);
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
-            // 
             // readRegistryToolStripMenuItem
             // 
             this.readRegistryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -136,41 +156,31 @@
             // getSerialNumberToolStripMenuItem
             // 
             this.getSerialNumberToolStripMenuItem.Name = "getSerialNumberToolStripMenuItem";
-            this.getSerialNumberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.getSerialNumberToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.getSerialNumberToolStripMenuItem.Text = "GetSerialNumber";
             this.getSerialNumberToolStripMenuItem.Click += new System.EventHandler(this.getSerialNumberToolStripMenuItem_Click);
             // 
-            // connectionMenuItem
+            // openConsoleToolStripMenuItem
             // 
-            this.connectionMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.connectToolStripMenuItem,
-            this.secureConnectToolStripMenuItem1,
-            this.disconnectToolStripMenuItem});
-            this.connectionMenuItem.Name = "connectionMenuItem";
-            this.connectionMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.connectionMenuItem.Text = "Connection";
+            this.openConsoleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.getRootListingToolStripMenuItem});
+            this.openConsoleToolStripMenuItem.Enabled = false;
+            this.openConsoleToolStripMenuItem.Name = "openConsoleToolStripMenuItem";
+            this.openConsoleToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.openConsoleToolStripMenuItem.Text = "File System";
+            this.openConsoleToolStripMenuItem.Click += new System.EventHandler(this.openConsoleToolStripMenuItem_Click);
             // 
-            // connectToolStripMenuItem
+            // notifyIcon1
             // 
-            this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.connectToolStripMenuItem.Text = "Connect";
-            this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
             // 
-            // secureConnectToolStripMenuItem1
+            // getRootListingToolStripMenuItem
             // 
-            this.secureConnectToolStripMenuItem1.Name = "secureConnectToolStripMenuItem1";
-            this.secureConnectToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.secureConnectToolStripMenuItem1.Text = "Secure Connect";
-            this.secureConnectToolStripMenuItem1.Click += new System.EventHandler(this.secureConnectToolStripMenuItem_Click);
-            // 
-            // disconnectToolStripMenuItem
-            // 
-            this.disconnectToolStripMenuItem.Enabled = false;
-            this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.disconnectToolStripMenuItem.Text = "Disconnect";
-            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
+            this.getRootListingToolStripMenuItem.Name = "getRootListingToolStripMenuItem";
+            this.getRootListingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.getRootListingToolStripMenuItem.Text = "Get Root Listing";
+            this.getRootListingToolStripMenuItem.Click += new System.EventHandler(this.getRootListingToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -208,6 +218,7 @@
         private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem secureConnectToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem getRootListingToolStripMenuItem;
     }
 }
 

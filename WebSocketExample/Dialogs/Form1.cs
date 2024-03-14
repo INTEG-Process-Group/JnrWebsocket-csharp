@@ -511,5 +511,19 @@ namespace WebSocketExample
         {
             _jniorWebsocket.Close();
         }
+
+
+
+        private async void getRootListingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //
+            // ask the jnior websocket connection for a file listing for the root folder.  here we will use the 
+            // query method so that the program blocks and waits for a response.
+            var rootListing = await _jniorWebsocket.Query(new FileList("/"));
+            if (null != rootListing)
+            {
+                LogToWindow(rootListing.ToString());
+            }
+        }
     }
 }
