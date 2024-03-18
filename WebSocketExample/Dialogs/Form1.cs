@@ -311,7 +311,7 @@ namespace WebSocketExample
                         secureConnectToolStripMenuItem1.Enabled = !_jniorWebsocket.IsOpened;
                         disconnectToolStripMenuItem.Enabled = _jniorWebsocket.IsOpened;
 
-                        openConsoleToolStripMenuItem.Enabled = _jniorWebsocket.IsOpened;
+                        fileSystemToolStripMenuItem.Enabled = _jniorWebsocket.IsOpened;
 
                         closeOutput1ToolStripMenuItem.Enabled = _jniorWebsocket.IsOpened;
                     }

@@ -42,9 +42,9 @@
             this.rebootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.readRegistryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getSerialNumberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.fileSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getRootListingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +70,7 @@
             this.setClockToolStripMenuItem,
             this.rebootToolStripMenuItem,
             this.readRegistryToolStripMenuItem,
-            this.openConsoleToolStripMenuItem});
+            this.fileSystemToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1291, 24);
@@ -160,20 +160,14 @@
             this.getSerialNumberToolStripMenuItem.Text = "GetSerialNumber";
             this.getSerialNumberToolStripMenuItem.Click += new System.EventHandler(this.getSerialNumberToolStripMenuItem_Click);
             // 
-            // openConsoleToolStripMenuItem
+            // fileSystemToolStripMenuItem
             // 
-            this.openConsoleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileSystemToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.getRootListingToolStripMenuItem});
-            this.openConsoleToolStripMenuItem.Enabled = false;
-            this.openConsoleToolStripMenuItem.Name = "openConsoleToolStripMenuItem";
-            this.openConsoleToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
-            this.openConsoleToolStripMenuItem.Text = "File System";
-            this.openConsoleToolStripMenuItem.Click += new System.EventHandler(this.openConsoleToolStripMenuItem_Click);
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
+            this.fileSystemToolStripMenuItem.Enabled = false;
+            this.fileSystemToolStripMenuItem.Name = "fileSystemToolStripMenuItem";
+            this.fileSystemToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.fileSystemToolStripMenuItem.Text = "File System";
             // 
             // getRootListingToolStripMenuItem
             // 
@@ -181,6 +175,11 @@
             this.getRootListingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.getRootListingToolStripMenuItem.Text = "Get Root Listing";
             this.getRootListingToolStripMenuItem.Click += new System.EventHandler(this.getRootListingToolStripMenuItem_Click);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
             // 
             // Form1
             // 
@@ -210,7 +209,6 @@
         private System.Windows.Forms.ToolStripMenuItem setClockToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rebootToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openConsoleToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ToolStripMenuItem readRegistryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getSerialNumberToolStripMenuItem;
@@ -218,6 +216,7 @@
         private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem secureConnectToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileSystemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getRootListingToolStripMenuItem;
     }
 }
